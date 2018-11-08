@@ -126,7 +126,7 @@ static void mk_set_pwm(float *pwm_values)
                 LL_GPIO_SetOutputPin(MOTOR_CH4_DIR_PORT,MOTOR_CH4_DIR_PIN);
         else
                 LL_GPIO_ResetOutputPin(MOTOR_CH4_DIR_PORT, MOTOR_CH4_DIR_PIN);
-        LL_TIM_OC_SetCompareCH4(MOTOR_TIM, (uint32_t)(fabsf(pwm_values[3]) *
+        LL_TIM_OC_SetCompareCH4(MOTOR_TIM, (uint32_t)(fabsf(0) *
                                 MOTOR_PWM_TIM_ARR));
         return;
 }
@@ -232,7 +232,7 @@ static void mk_hw_config()
         LL_TIM_OC_SetCompareCH1(MOTOR_TIM, MOTOR_PWM_TIM_CCR_INIT);
         LL_TIM_OC_SetCompareCH2(MOTOR_TIM, MOTOR_PWM_TIM_CCR_INIT);
         LL_TIM_OC_SetCompareCH3(MOTOR_TIM, MOTOR_PWM_TIM_CCR_INIT);
-        LL_TIM_OC_SetCompareCH4(MOTOR_TIM, MOTOR_PWM_TIM_CCR_INIT);
+        LL_TIM_OC_SetCompareCH4(MOTOR_TIM, 0 );
 
         /* Enable timer */
         LL_TIM_GenerateEvent_UPDATE(MOTOR_TIM);
@@ -276,7 +276,7 @@ void motor_kinematics(void *arg)
                 .vel_x = 0.0f,
                 .vel_y = 0.0f,
                 .wz = 0.0f,
-                .pwm_motors = {0.1f, 0.1f, 0.1f, 0.1f}
+                .pwm_motors = {0.1f, 0.1f, 0.1f, 0.0f}
         };
 
         mk_hw_config();
@@ -294,7 +294,7 @@ void motor_kinematics(void *arg)
                         mk_ctrl->pwm_motors[0] = 0.1f;
                         mk_ctrl->pwm_motors[1] = 0.1f;
                         mk_ctrl->pwm_motors[2] = 0.1f;
-                        mk_ctrl->pwm_motors[3] = 0.1f;
+                        mk_ctrl->pwm_motors[3] = 0.0f;
                 }
                 /*
                  * If motors are allowed to be running and control
