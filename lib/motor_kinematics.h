@@ -5,6 +5,8 @@
 #include "task.h"
 #include "semphr.h"
 
+#define SMALL_ROBOT
+
 /*
  * SET_PWM command args structure
  */
@@ -68,16 +70,38 @@ StaticSemaphore_t mutex_buffer;
 /*
  * Forward kinematics parameters
  */
-#define MK_MAX_ROT_SPEED 22.4399f
-#define MK_LIN_KIN_MATRIX \
-        -32.0750f,    18.5158f,    0.0f, \
-        0.0f,         37.0370f,    0.0f, \
-        32.0750f,     18.5158f,    0.0f
 
-#define MK_ROT_KIN_MATRIX \
-        0.0f,   0.0f,    3.67f,   \
-        0.0f,   0.0f,   -3.67f,  \
-        0.0f,   0.0f,    3.67f
+#define MK_MAX_ROT_SPEED 22.4399f
+
+#ifdef SMALL_ROBOT
+
+        #define MK_LIN_KIN_MATRIX \
+                -32.0750f,    18.83f,    0.0f, \
+                0.0f,         37.0370f,    0.0f, \
+                32.0750f,     18.83f,    0.0f
+
+        #define MK_ROT_KIN_MATRIX \
+                0.0f,   0.0f,    3.67f,   \
+                0.0f,   0.0f,   -3.67f,  \
+                0.0f,   0.0f,    3.67f
+
+#endif
+
+
+#ifdef BIG_ROBOT
+
+        #define MK_LIN_KIN_MATRIX \
+                -32.0750f,    18.5185f,    0.0f, \
+                0.0f,         -37.0370f,   0.0f, \
+                32.0750f,     18.5185f,    0.0f
+
+        #define MK_ROT_KIN_MATRIX \
+                0.0f,   0.0f,    5.64f,   \
+                0.0f,   0.0f,    5.64f,  \
+                0.0f,   0.0f,    5.64f
+
+#endif
+
 
 #define MK_SPEED2PWM_A \
         0.03565f, \

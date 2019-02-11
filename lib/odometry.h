@@ -4,6 +4,8 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
+#define SMALL_ROBOT
+
 /*
  * Encoder ticks to radians coefficient calculation
  */
@@ -41,13 +43,27 @@ typedef struct {
 StackType_t odometry_ts[ODOMETRY_STACK_DEPTH];
 StaticTask_t odometry_tb;
 
+#ifdef BIG_ROBOT
 /*
  * Inverse kinematics matrix
  */
 #define ODOM_INV_KINEMATICS \
         0.016289945f,           0.0f,                   -0.016289945f, \
        -0.0094054665f,          0.018810933f,           -0.0094054665f, \
-       -0.09326100256f,        -0.09326100256f,         -0.09326100256f
+       -0.0616409701f,         -0.0616409701f,          -0.0616409701f
+#endif
+
+
+#ifdef SMALL_ROBOT
+/*
+ * Inverse kinematics matrix
+ */
+#define ODOM_INV_KINEMATICS \
+        0.016289945f,           0.0f,                   -0.016289945f, \
+       -0.0094054665f,          0.018810933f,           -0.0094054665f, \
+       -0.09316100256f,        -0.09316100256f,         -0.09316100256f,
+#endif
+       
 
 /*
  * Main freertos task

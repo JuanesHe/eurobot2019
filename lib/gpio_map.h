@@ -75,3 +75,16 @@
 #define ENCODER_3_PIN_AF                    LL_GPIO_AF_1
 
 #endif
+
+
+/*
+*	Stepper pinout
+*
+
+
+#define ENCODER_1_CHA_PORT                  GPIOB
+#define ENCODER_1_CHA_PIN                   LL_GPIO_PIN_3
+#define ENCODER_1_CHB_PORT                  GPIOA
+#define ENCODER_1_CHB_PIN                   LL_GPIO_PIN_15
+#define ENCODER_1_PIN_AF                    LL_GPIO_AF_1
+*/
